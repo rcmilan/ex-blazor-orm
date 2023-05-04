@@ -1,8 +1,22 @@
+using BlazorORM.App.Data.Configuration;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("ORMDB"));
+
+builder.Services.AddScoped(serviceProvider =>
+ {
+     return new HttpClient
+     {
+         BaseAddress = new Uri(serviceProvider.GetRequiredService<NavigationManager>().BaseUri)
+     };
+ });
 
 var app = builder.Build();
 
@@ -20,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
