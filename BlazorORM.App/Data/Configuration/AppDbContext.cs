@@ -17,6 +17,6 @@ namespace BlazorORM.App.Data.Configuration
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<BlazorORM.App.Data.Models.Product> Product { get; set; } = default!;
+        public DbSet<Product> Product { get; set; } = default!;
     }
 }

@@ -20,10 +20,10 @@ namespace BlazorORM.App.Data.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-          if (_context.Product == null)
-          {
-              return NotFound();
-          }
+            if (_context.Product == null)
+            {
+                return NotFound();
+            }
             return await _context.Product.ToListAsync();
         }
 
@@ -31,10 +31,10 @@ namespace BlazorORM.App.Data.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-          if (_context.Product == null)
-          {
-              return NotFound();
-          }
+            if (_context.Product == null)
+            {
+                return NotFound();
+            }
             var product = await _context.Product.FindAsync(id);
 
             if (product == null)
@@ -81,10 +81,10 @@ namespace BlazorORM.App.Data.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-          if (_context.Product == null)
-          {
-              return Problem("Entity set 'AppDbContext.Product'  is null.");
-          }
+            if (_context.Product == null)
+            {
+                return Problem("Entity set 'AppDbContext.Product'  is null.");
+            }
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
@@ -111,9 +111,6 @@ namespace BlazorORM.App.Data.Controllers
             return NoContent();
         }
 
-        private bool ProductExists(int id)
-        {
-            return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        private bool ProductExists(int id) => (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }
